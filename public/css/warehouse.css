@@ -1,0 +1,150 @@
+table{
+	width: 100%;
+	border-collapse: collapse;
+	p{
+		font-size: 120%;
+	}
+}
+th, td{
+
+	font-size: 1.1em;
+}
+#content-1,
+#content-2,
+#content-3{
+	tbody tr{
+		border-bottom: 2px dashed #38511b;
+		background: rgba(242, 248, 224, .8);
+		position:relative;
+
+		&:after{
+		 	content: '';
+		 	display: block;
+		 	height: 10px;
+		 	width: 100%;
+		 	position: absolute;
+		 	background: #cbd2b4;
+		 	left: 0;
+		 	top:1;
+		}
+		td{
+			padding: 10px;
+			padding-top: 20px;
+			text-align: left;
+
+		}
+		.td-date{
+			text-align: center;
+		}
+		.quantity{
+			text-align: right;
+		}
+	}
+	tbody tr:nth-of-type(2n){
+
+		background: rgba(242, 248, 224, .4);
+	}
+}
+
+#content-1,
+#content-2{
+	td:nth-child(n+2){
+		width: 25%;
+	}
+	
+}
+
+#content-4{
+	table{
+		width: 100%;
+		border-collapse: collapse;
+
+	}
+	th, td{
+/*		width: 25%;*/
+		padding: 10px;
+	}
+	tbody tr{
+		background: rgba(242, 248, 224, .8);
+	    position: relative;
+	}
+	tbody tr:nth-of-type(4n +1), tr:nth-of-type(4n +2){
+		background: rgba(242, 248, 224, .4);
+		
+	}
+	tbody tr:nth-of-type(2n +1):after{
+	    content: '';
+	    display: block;
+	    height: 10px;
+	    width: 100%;
+	    position: absolute;
+	    background: #cbd2b4;
+	    left: 0;
+	    top:1;
+	    
+	}
+	tbody tr:nth-of-type(2n){
+		border-bottom: 2px dashed #38511b;
+
+	}
+	tbody tr:nth-of-type(2n +1){
+	    td{
+	        padding-top: 20px;
+	    }
+	}
+	.actions{
+		flex-flow: row;
+		gap: 20px;
+		width: 100%;
+		justify-content: end;
+		a:last-of-type{
+			color: green;
+		}
+	}
+}
+	
+
+
+
+#content-2 > .create-edit{
+	flex-flow: row wrap;
+	width: 100%;
+
+	div > input, select {
+		width: 100%;
+	}
+
+	.product{
+		width: 50%;
+	}
+	.quantity, .unit-measure{
+		width: 20%;
+	}
+}
+
+
+
+.delivery-items{
+	gap: 20px
+}
+
+.delivery-item{
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 20px;
+
+	div{
+		position: relative;
+	}
+}
+
+
+.edit-item, .edit-supplier{
+	font-weight: 500;
+	color: #565656;
+}
+.edit-item:first-of-type, .edit-supplier:first-of-type{
+		&:link, &:visited{
+			color: green;
+		}
+	}

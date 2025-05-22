@@ -1,0 +1,430 @@
+*{
+	box-sizing: border-box;
+	margin: 0;
+}
+body{
+	background: #ffefd4;
+	font-family: Montserrat;
+	display: flex;
+	flex-flow: row wrap;
+}
+h1, h2, h3, h4{
+	font-family: Cormorant Infant;
+}
+header{
+	width: 100%;
+	height: fit-content;
+	padding: 1em 5em;
+}
+nav{
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: center;
+	color: #a3ae7e;
+	font-weight: 500;
+	text-align: right;
+	font-size: 1.3em;
+
+	img{
+		width: 80%;
+		height: auto;
+	}
+	a:link, a:visited{
+		color: #a3ae7e;
+	}
+}
+a{
+	text-decoration: none;
+	transition: font-size .2s;
+	display: -webkit-inline-box;
+	&:link, &:visited{
+		color: #38511b;
+	}
+	&:hover, &:active{
+		font-size: 110%;
+	}
+}
+
+.sidebar{
+	width: 18em;
+	height: fit-content;
+	background: #8e6446;
+	padding: 1em;
+	border-radius: 20px;
+
+	display: grid;
+	grid-auto-rows: auto;
+	grid-gap: 1em;
+
+	font-size: 1.5em;
+
+	margin: 0 2vw 0 0;
+
+	color: #ffefd4;
+
+	a, a:visited{
+		color: #ffefd4;
+
+		&:hover, :active{
+			font-size: 120%;
+		}
+	}
+
+	.item{
+		margin: 0 20px;
+	}
+
+	
+}
+
+hr{
+	width: 100%;
+	height: 0;
+	padding: 0;
+	border: none;
+	border-top: 2px dashed #ffefd4;
+}
+main{
+	width: 100%;
+	display: flex;
+	flex-flow: row nowrap;
+
+	padding: 2vh 0;
+	height: 90vh;
+}
+
+.tab {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: 100%;
+	color: #38511b;
+}
+
+/* This part remains the same if you're still showing/hiding content */
+#content-1:target,
+#content-2:target,
+#content-3:target,
+#content-4:target {
+    display: flex;
+    flex-flow: row wrap;
+}
+.tab-content:first-child {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.tab-nav {
+    display: flex;
+    flex-flow: row nowrap;
+    font-family: Cormorant Infant;
+    font-size: 1.3em;
+    font-weight: 600;
+    width: 100%;
+    order: -1;
+}
+
+.tab-btn {
+    width: 25%;
+    display: flex;
+    height: 55px;
+    justify-content: center;
+    position: relative; /* Needed for the background positioning */
+    
+    /* Default background (inactive tab) */
+    background: linear-gradient(to top, #a3ae7e 50%, transparent 50%);
+    
+    a {
+        display: block;
+        width: 80%;
+        background: #a3ae7e;
+        padding: 0.5em 1em;
+        margin: 0;
+        border-radius: 20px 20px 0 0;
+        -webkit-appearance: button;
+        cursor: pointer;
+        text-align: left;
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+        z-index: 2; /* Ensure the link appears above the pseudo-elements */
+    }
+
+    &:after {
+        content: '';
+        height: 100%;
+        width: 10%;
+        border-bottom-right-radius: 20px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        background-color: #ffefd4;
+        z-index: 1;
+    }
+
+    &:before {
+        content: '';
+        height: 100%;
+        width: 10%;
+        border-bottom-left-radius: 20px;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        background-color: #ffefd4;
+        z-index: 1;
+    }
+
+    /* Active tab styles */
+    a.active {
+        background-color: #cbd2b4;
+        cursor: default;
+    }
+    
+    /* Active tab background */
+    &.active, &:has(a.active) {
+        background: linear-gradient(to top, #cbd2b4 50%, transparent 50%);
+    }
+}
+
+.tab-content {
+    display: none;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;    
+    height: 100%;
+    border-radius: 20px;
+    border: 30px solid #cbd2b4;
+    background: #cbd2b4;
+    overflow: hidden;
+    align-content: start;
+    gap: 20px 50px;
+}
+.column{
+	display: flex;
+	flex-flow: column nowrap;
+	width: 100%;
+	height: 100%;
+	overflow: hidden scroll;
+	gap: 10px;
+	&::-webkit-scrollbar{
+    	width: 0;
+    }
+    > div{
+	background: rgba(242, 248, 224, .8);
+
+    }
+    
+}
+
+
+
+footer{
+	background: #8e6446;
+	padding: 2em 10em;
+	width: 100%;
+	height: 20vh;
+
+	display: grid;
+	grid-template: auto / repeat(4, 1fr);
+	grid-gap: 1em;
+
+	color: #cbcdb4;
+	font-size: 1.3em;
+
+	& div{
+		display: flex;
+		align-items: flex-start;
+
+		& img{
+			width: 2em;
+			height: auto;
+			margin: 0 1em 0 0;
+		}
+	}
+	& a:visited{
+		color: #cbcdb4;
+	}
+}
+main:has(.back-auth-form){
+	padding: 0;
+}
+.back-auth-form{
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)),
+	 url('../images/coffee/orig.jpg') no-repeat center center / cover;
+	 display:flex;
+	 justify-content: center;
+	 align-items: center;
+}
+
+.back-auth-form form{
+		display: flex;
+		flex-flow: column nowrap;
+		padding: 50px;
+		background: rgba(203, 210, 180, .25);
+		backdrop-filter: blur(20px);
+		border-radius:20px;
+/*		align-items: center;*/
+		gap: 2vh;
+
+			font-size: 1.5em;
+			a, h1{
+				color: #ffefd4;
+			}
+		h1{
+			text-align: center;
+		}
+		
+		
+		
+	}
+
+#menu-form-container{
+	display: flex;
+	flex-flow: column nowrap;
+	width: 100%;
+
+	overflow: hidden scroll;
+	gap: 10px;
+	&::-webkit-scrollbar{
+    	width: 0;
+    }
+
+}
+form div{
+	position: relative;
+
+	display:flex;
+	flex-flow:column nowrap;
+	label{
+		position: absolute;
+		color: #38511b;
+		top: 15px;
+		left: 20px;
+		font-size: 20px;
+		transition: font-size .2s, top .2s, left .2s;
+	}
+	input, select, textarea{
+		width: 600px;
+		min-height: 60px;
+		border: none;
+		background: #ffefd4;
+		padding: 20px;
+		font-size: 20px;
+		font-family: Montserrat;
+		color: #38511b;
+		border-radius: 15px;
+	}
+		
+	&:has(input:focus, input:not(:placeholder-shown), 
+		textarea:focus, textarea:not(:placeholder-shown)) > label{
+		font-size: 12px;
+		top: 5px;
+		left: 10px;
+	}
+	&:has(input:disabled, textarea:disabled){
+		opacity: 0.8;
+	}
+}
+
+	button{
+		display: block;
+		width: 600px;
+		min-height: 60px;
+		font-family: Cormorant Infant;
+		color: #38511b;
+		font-size: 30px;
+		font-weight: 600;
+		border-radius: 15px;
+		border: none;
+		background: #ffd884;
+		cursor: pointer;
+		
+	}
+
+	
+.search{
+	grid-column: span 2;
+	display: flex;
+	flex-flow: row nowrap;
+	width: 100%;
+	gap: 30px;
+	input, select{
+		width: 400px;
+	}
+}
+.create-edit{
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 20px 20px;
+
+	height: 100%;
+	overflow: hidden scroll;
+	&::-webkit-scrollbar{
+		width: 0;
+	}
+}
+
+/*кнопки взимодействий с записью*/
+.actions{
+	display: flex;
+	flex-flow: row wrap;
+	width: 20%;
+	gap: 20px;
+
+	justify-content: space-between;
+	a{
+		font-weight: 500;
+		color: #565656;
+	}
+	a:first-child {
+		&:link, &:visited{
+			color: green;
+		}
+	}
+	a:last-child{
+		&:link, &:visited{
+			color: #b51111;
+		}
+	}
+}
+
+
+
+.column div:nth-child(2n){
+	background: rgba(242, 248, 224, .4);
+
+}
+
+.delete-btn{
+	width: auto;
+	min-height: auto;
+	max-height: fit-content;
+	background: none;
+	color: #b51111;
+	font-family: Montserrat;
+	font-size: 1em;
+	text-align: left;
+	padding: 0;
+	font-weight: 500;
+}
+
+#form-container{
+	display: flex;
+	flex-flow: column nowrap;
+	width: 100%;
+	height: 100%;
+	overflow: hidden scroll;
+	gap: 10px;
+	&::-webkit-scrollbar{
+    	width: 0;
+    }
+    hr{
+    	border-top: 2px dashed #38511b;
+    }
+    > div{
+	background: rgba(242, 248, 224, .8);
+
+    }
+}

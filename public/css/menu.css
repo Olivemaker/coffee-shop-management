@@ -1,0 +1,181 @@
+.menu{
+	width: 100%;
+	border-collapse: collapse;
+	td{
+		width: 25%;
+
+		padding: 10px;
+	}
+
+
+	tbody tr{
+
+
+		background: rgba(242, 248, 224, .4);
+    	position: relative;
+	}
+
+	tbody tr:nth-of-type(4n +1), tr:nth-of-type(4n +2){
+		background: rgba(242, 248, 224, .8);
+	
+	}
+
+	tbody tr:nth-of-type(2n +1):after{
+	    content: '';
+	    display: block;
+	    height: 10px;
+	    width: 100%;
+	    position: absolute;
+	    background: #cbd2b4;
+	    left: 0;
+	    top:1;
+		    
+	}
+	tbody tr:nth-of-type(2n){
+		border-bottom: 2px dashed #38511b;
+
+	}
+	tbody tr:nth-of-type(2n +1){
+	    td{
+	        padding-top: 20px;
+	    }
+	}
+
+	.sizes {
+		font-size: 1.2em;
+		width: 100%;
+		aspect-ratio: 3/1;
+		display: grid; 
+		grid-template: repeat(3, 1fr) / 10% 20% auto;
+		align-items:center;
+		p:nth-child(3n +1){
+			font-weight: 600;
+		}
+		p:nth-child(3n){
+			text-align: right;
+		}
+	}
+}
+
+/*.menu-item{
+	width: 100%;
+	height: fit-content;
+
+	text-align: left;
+	border-bottom: 1px;
+
+	display: flex;
+	flex-flow: row wrap;
+	justify-content:space-between;
+	gap: 10px;
+	padding:10px;
+	border-bottom: 2px dashed #38511b;
+
+
+	h2{
+		width: 100%;
+	}
+	table{
+		width: 100%;
+
+		align-items: end;
+		border-collapse: collapse;
+		td:last-child{
+			font-size:20px;
+
+			text-align: right;
+		}
+		td:first-child{
+			font-weight: 500;
+			font-size: 18px;
+			width: 5%;
+
+		}
+	}
+	
+}*/
+.snacks p{
+	font-size: 1.5em;
+}
+
+.menu-item-image{
+	width: 100%;
+	aspect-ratio: 1;
+	border-radius: 10px;
+	float: right;
+
+}
+/*сезонные предложения*/
+.marketing{
+	width: 100%;
+	padding: 1em;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+
+	border-radius: 20px;
+	position: relative;
+
+	h3{
+		font-size: 2.5em;
+		width: 60%;
+	}
+	div{
+		width: 45%;
+		aspect-ratio: 4 /3;
+
+	}
+	p{
+		font-size: 1.2em;
+	}
+	.actions{
+		flex-flow: row nowrap;
+		width: 40%;
+		gap: 1em;
+		aspect-ratio: 0;
+	}
+}
+#summer{
+	background: #cbd2b4;
+	color: #38511b;
+	border: 1px solid #38511b;
+}
+#autumn{
+	background: #8e6446;
+	color: #ffefd4;
+	border: 1px solid #ffefd4;
+}
+#winter{
+	background: #d8f4f5;
+	color: #234760;
+	border: 1px solid #234760;
+}
+#spring{
+	background: #f8c6db;
+	color: #805dc5;
+	border: 1px solid #805dc5;
+}
+
+
+#preview1 {
+	margin-top: 10px;
+    width: 100px; 
+    height: 100px; 
+    overflow: hidden; 
+    border-radius: 10px;
+}
+#preview2{
+	margin-top: 10px;
+    width: 250px; 
+	aspect-ratio: 4/3; 
+    overflow: hidden; 
+    border-radius: 10px;
+}
+
+.image-preview {
+	height: 100%;
+	width: 100%;
+
+	object-fit: cover;
+}
+
