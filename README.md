@@ -64,7 +64,7 @@ php artisan storage:link
 
 # 7. Запустить сервер
 php artisan serve
-`
+```
 
 Готово! Приложение доступно по адресу: http://localhost:8000
 
