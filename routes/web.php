@@ -32,7 +32,14 @@ Auth::routes(['reset' =>true]);
 Route::get('/SpicyParadise', [Controller::class, 'showPublic']);
 
 
-Route::group(['prefix' => 'SpicyParadise'], function(){
+Route::group(['prefix' => 'SpicyParadise/admin'], function(){
+
+    Route::get('/', function() {
+        if (auth()->check()) {
+            return redirect()->route('menu'); // или другой маршрут по умолчанию для авторизованных
+        }
+        return redirect()->route('login');
+    });
     
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('login', [LoginController::class, 'login']);

@@ -110,3 +110,29 @@
 .tab-content{
     flex-flow: row wrap;
 }
+
+
+.legend{
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 20px;
+
+    h2{
+        width: 100%;
+    }
+    div{
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        gap:10px;
+        img{
+            width: 40px;
+            height: auto;
+        }
+   }
+   span{
+    font-size: 1.2em;
+    font-weight: 500;
+   }
+}

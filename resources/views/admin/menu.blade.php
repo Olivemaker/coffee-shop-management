@@ -48,7 +48,9 @@
         <!-- форма управления меню -->
         <div id="menu-form-container">
             @include('admin.partials.menu-item-create')
-
+            @if(session('success'))
+            <p>{{session('success')}}</p>
+            @endif
         </div>
     </div>
 
@@ -101,9 +103,7 @@
         @if(session('success'))
         <p>{{session('success')}}</p>
         @endif
-        @if(session('success-image'))
-        <p>{{session('success-image')}}</p>
-        @endif
+      
         </form>
 
     </div>
@@ -138,22 +138,28 @@
             }
         });
 
-        // Обработка выбора категории
-        $('#category-select').change(function() {
+       $('#category-select').change(function() {
             const selectedCategory = $(this).find('option:selected').data('category');
             
-            // Скрываем все поля
+            // Скрываем все поля и сбрасываем обязательные атрибуты
             $('#common-fields, #price-field, .size-fields, #image-fields').hide();
-
+            $('#name, #price, #price-s, #price-m, #price-l, #image-menu').removeAttr('required');
+            
             if (selectedCategory === 'Hot' || selectedCategory === 'Cold') {
                 // Отображаем поля для горячих и холодных напитков
                 $('#common-fields').show();
                 $('.size-fields').show();
                 $('#image-fields').show();
+                
+                // Делаем поля обязательными
+                $('#name, #price-s, #price-m, #price-l, #image-menu').attr('required', 'required');
             } else if (['Sandwich', 'Mochi', 'Donat', 'Salad', 'Cheesecake'].includes(selectedCategory)) {
                 // Отображаем только имя и цену
                 $('#common-fields').show();
                 $('#price-field').show();
+                
+                // Делаем поля обязательными
+                $('#name, #price').attr('required', 'required');
             }
         });
 

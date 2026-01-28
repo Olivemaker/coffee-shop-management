@@ -64,3 +64,23 @@ tbody tr:nth-of-type(2n){
 	height: 5px;
 	border-radius: 3px;
 }
+form{
+	hr{
+		width: 600px;
+		border-top: 2px dashed #38511B;
+	}
+}
+#operations-container{
+	gap: 20px;
+}
+.operation-group {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 20px;
+}
+.form-actions {
+
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}

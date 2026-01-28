@@ -10,7 +10,9 @@ use App\Models\DrinkSize;
 use App\Models\SesonalOffers;
 use App\Models\FoodPrice;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Illuminate\Support\Facades\Cache;
 
 
 class MenuController extends Controller
@@ -51,12 +53,29 @@ class MenuController extends Controller
     public function store(Request $request) 
     {
         // Валидация основных полей
-        $request->validate([
+        $category = Category::findOrFail($request->category_id);
+        
+        // Базовые правила валидации
+        $rules = [
             'category_id' => 'required|exists:category,id',
             'name' => 'required|string|max:255',
-            'image' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:20480'
-        ]);
-        $category = Category::findOrFail($request->category_id);
+        ];
+
+        // Добавляем правила в зависимости от категории
+        if (in_array($category->name, ['Hot', 'Cold'])) {
+            $rules = array_merge($rules, [
+                'price_s' => 'required|numeric|min:0',
+                'price_m' => 'required|numeric|min:0',
+                'price_l' => 'required|numeric|min:0',
+                'image' => 'required|file|mimes:jpeg,png,jpg,gif|max:20480'
+            ]);
+        } else {
+            $rules['price'] = 'required|numeric|min:0';
+        }
+
+        // Валидация
+        $request->validate($rules);
+
         // Создаём запись в меню
         $menuItem = Menu::create([
             'category_id' => $request->category_id,
@@ -73,18 +92,35 @@ class MenuController extends Controller
             ]);
             // Сохраняем цены размеров
             DrinkSize::insert([
-                ['menu_id' => $menuItem->id, 'size' => 'S', 'price' => $request->price_s],
-                ['menu_id' => $menuItem->id, 'size' => 'M', 'price' => $request->price_m],
-                ['menu_id' => $menuItem->id, 'size' => 'L', 'price' => $request->price_l],
+                ['menu_id' => $menuItem->id, 'size' => 'S', 'price' => $request->price_s, 'created_at' => now(),'updated_at' => now()],
+                ['menu_id' => $menuItem->id, 'size' => 'M', 'price' => $request->price_m, 'created_at' => now(),'updated_at' => now()],
+                ['menu_id' => $menuItem->id, 'size' => 'L', 'price' => $request->price_l, 'created_at' => now(),'updated_at' => now()],
             ]);
             // Обработка изображения (если передано)
             if ($request->hasFile('image')) {
-                $path = $request->file('image')->store('menu', 'public');
+            $image = $request->file('image');
+              
+                $imageName = time() . '_' . uniqid() . '.webp';
+                
+                $manager = new ImageManager(new Driver());
+                
+                // Оптимизируем
+                $optimizedImage = $manager->read($image)
+                    ->resize(1200, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                        $constraint->upsize();
+                    })
+                    ->toWebp(80); // Качество 80%
+                
+                // Сохраняем
+                Storage::disk('public')->put("menu/{$imageName}", $optimizedImage);
+                
                 DrinksImages::create([
                     'menu_id' => $menuItem->id,
-                    'image_path' => $path
+                    'image_path' => "menu/{$imageName}" // Сохраняем путь
                 ]);
             }
+
         } else {
             // Обработка закусок (если указана цена)
             if ($request->filled('price')) {
@@ -137,15 +173,34 @@ class MenuController extends Controller
                 }
             }
             if ($request->hasFile('image')) {
-                // обновление изображения
+                // Удаляем старое изображение
                 if ($menuItem->drinkimage) {
                     Storage::delete('public/' . $menuItem->drinkimage->image_path);
                     $menuItem->drinkimage->delete();
-                }        
-                $path = $request->file('image')->store('menu', 'public');
+                }
+                
+                $image = $request->file('image');
+                
+                //ОПТИМИЗАЦИЯ
+                $imageName = time() . '_' . uniqid() . '.webp';
+                
+                $manager = new ImageManager(new Driver());
+        
+                // Оптимизируем
+                $optimizedImage = $manager->read($image)
+                    ->resize(1200, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                        $constraint->upsize();
+                    })
+                    ->toWebp(80); // Качество 80%
+                
+                // Сохраняем
+                Storage::disk('public')->put("menu/{$imageName}", $optimizedImage);
+                // === КОНЕЦ ОПТИМИЗАЦИИ ===
+                
                 DrinksImages::create([
                     'menu_id' => $menuItem->id,
-                    'image_path' => $path
+                    'image_path' => "menu/{$imageName}"
                 ]);
             }
         } elseif ($request->filled('price')) {
@@ -223,16 +278,36 @@ class MenuController extends Controller
         // Обновляем данные
         $offer->title = $title;
         $offer->description = $description;
+
         // Обновляем изображение (если передано)
         if ($request->hasFile('image')) {
             // Удаляем старое изображение
             if ($offer->image_path && Storage::exists('public/' . $offer->image_path)) {
                 Storage::delete('public/' . $offer->image_path);
             }
-            // Сохраняем новое
-            $imagePath = $request->file('image')->store('menu', 'public');
-            $offer->image_path = str_replace('public/', '', $imagePath);
+            
+            $image = $request->file('image');
+            
+            // === ОПТИМИЗАЦИЯ ===
+            $imageName = time() . '_' . uniqid() . '.webp';
+            
+            $manager = new ImageManager(new Driver());
+        
+            // Оптимизируем
+            $optimizedImage = $manager->read($image)
+                ->resize(1200, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })
+                ->toWebp(80); // Качество 80%
+            
+            // Сохраняем
+            Storage::disk('public')->put("menu/{$imageName}", $optimizedImage);
+            // === КОНЕЦ ОПТИМИЗАЦИИ ===
+            
+            $offer->image_path = "menu/{$imageName}";
         }
+
         $offer->save();
         return redirect()->route('menu', ['section' => 'sesonal-offers'])
                        ->with('success', 'Предложение успешно обновлено!');

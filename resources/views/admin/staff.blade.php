@@ -47,43 +47,62 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 <script>
 $(document).ready(function() {
-    function initColorPicker() {
-        const $toggle = $('#colorPickerToggle');
-        const $dropdown = $('#colorPickerDropdown');
-        const $colorOptions = $('.color-option');
-        const $selectedColorInput = $('#selected_color');
-        const $colorPreview = $('.color-preview');
-        const $selectedColorValue = $('.selected-color-value');
+   $(function() {
+        // Инициализация при загрузке страницы
+        initColorPicker();
         
-        // Удаляем старые обработчики, если они есть
-        $toggle.off('click');
-        $colorOptions.off('click');
-        $dropdown.off('click');
-        
-        // Показать/скрыть dropdown
-        $toggle.on('click', function(e) {
+        // Делегированная обработка для динамически появляющихся форм
+        $(document).on('click', '.color-picker-toggle', function(e) {
             e.stopPropagation();
-            $dropdown.toggle();
+            $(this).next('.color-picker-dropdown').toggle();
         });
         
-        // Выбор цвета
-        $colorOptions.on('click', function(e) {
+        $(document).on('click', '.color-option', function(e) {
             e.stopPropagation();
             const color = $(this).data('color');
-            $selectedColorInput.val(color);
-            $colorPreview.css('background-color', color);
-            $selectedColorValue.text(color);
-            $dropdown.hide();
+            const $container = $(this).closest('.color-picker-container');
+            
+            $container.find('#selected_color').val(color);
+            $container.find('.color-preview').css('background-color', color);
+            $container.find('.selected-color-value').text(color);
+            $container.find('.color-picker-dropdown').hide();
         });
         
-        // Закрыть dropdown при клике вне его
+        // Закрытие при клике вне пикера
         $(document).on('click', function() {
-            $dropdown.hide();
+            $('.color-picker-dropdown').hide();
         });
         
-        // Предотвращаем закрытие при клике внутри dropdown
-        $dropdown.on('click', function(e) {
+        // Предотвращение закрытия при клике внутри пикера
+        $(document).on('click', '.color-picker-dropdown', function(e) {
             e.stopPropagation();
+        });
+    });
+
+    function initColorPicker() {
+        $('.color-picker-container').each(function() {
+            const $container = $(this);
+            const $dropdown = $container.find('.color-picker-dropdown');
+            const $toggle = $container.find('.color-picker-toggle');
+            const $colorOptions = $container.find('.color-option');
+            const $selectedColorInput = $container.find('#selected_color');
+            const $colorPreview = $container.find('.color-preview');
+            const $selectedColorValue = $container.find('.selected-color-value');
+            
+            // Обработчики для конкретного контейнера
+            $toggle.off('click').on('click', function(e) {
+                e.stopPropagation();
+                $dropdown.toggle();
+            });
+            
+            $colorOptions.off('click').on('click', function(e) {
+                e.stopPropagation();
+                const color = $(this).data('color');
+                $selectedColorInput.val(color);
+                $colorPreview.css('background-color', color);
+                $selectedColorValue.text(color);
+                $dropdown.hide();
+            });
         });
     }
     

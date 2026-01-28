@@ -9,15 +9,19 @@
 		<h1>Сбросить пароль</h1>
 
 		@if(session('status'))
-			<div class="alert alert-succses">{{ session('status') }}</div>
+			<div class="alert alert-succses">
+				<span style="color: #ffefd4; font-weight: 600">{{ session('status') }}</span>
+			</div>
 		@endif
-
+		@if($errors->has('email'))
+			<div>
+                <span style="color: red; font-weight: 600" class="text-danger">{{ $errors->first('email') }}</span>
+            </div>
+         @endif
 		<div>
 			<label for="email">Email</label>
 			<input type="text" name="email" placeholder=" ">
-			@error('email')
-                <span class="text-danger">{{ $message }}</span>
-            @enderror
+			
 		</div>
 
 		<button type="submit">Получить ссылку для сброса пароля</button>

@@ -103,6 +103,7 @@ $(document).ready(function() {
         
         const newGroup = `
             <div class="operation-group">
+                <hr>
                 <div>
                     <select name="operations[${operationCount}][type]" required>
                         <option value="">Тип операции</option>
@@ -127,6 +128,7 @@ $(document).ready(function() {
                     <label>Дата операции</label>
                     <input type="date" name="operations[${operationCount}][date]" required>
                 </div>
+
             </div>
         `;
         
@@ -139,20 +141,4 @@ $(document).ready(function() {
 });
 </script>
 
-<style>
-.operation-group {
-    display: flex;
-    flex-flow: column nowrap;
-    gap: 20px;
-
-    margin-bottom: 20px;
-}
-.form-actions {
-
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-</style>
 @endsection

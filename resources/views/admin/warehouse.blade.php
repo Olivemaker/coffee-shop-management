@@ -50,13 +50,13 @@
     <!-- Форма создания/редактирования -->
     <div id="store-item-form-container">
         @include('admin.partials.store-item-create')
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
     </div>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
 
     <script>
     $(document).ready(function() {
@@ -146,13 +146,13 @@
             <input type="date" name="date" id="inventory-date" required>
         </div>
         <button type="submit">Сохранить</button>
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
     </form>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
 
     <script>
     $(document).ready(function() {
@@ -232,15 +232,15 @@
                 </div>
             </div>
         </div>
-        <button type="button" id="add-delivery-item">Добавить поставку</button>
+        <a href="#" id="add-delivery-item">Добавить поставку</a>
         <button type="submit">Сохранить все</button>
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
     </form>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
 
     <script>
     $(document).ready(function() {
@@ -268,6 +268,7 @@
         $('#add-delivery-item').click(function() {
             const newItem = `
                 <div class="delivery-item">
+                    <hr>
                     <div>
                         <select name="items[${itemCount}][id_item]" required>
                             <option value="">Выберите товар</option>
@@ -291,6 +292,7 @@
                     <div>
                         <input type="date" name="items[${itemCount}][date]" required>
                     </div>
+
                 </div>
             `;
             $('#delivery-items-container').append(newItem);
@@ -339,13 +341,13 @@
 
     <div id="supplier-form-container">
         @include('admin.partials.supplier-create')
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
     </div>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script>

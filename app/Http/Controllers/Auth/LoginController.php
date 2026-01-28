@@ -52,7 +52,7 @@ class LoginController extends Controller
             return redirect()->route('menu');
         }
 
-        return back()->withErrors(['login' => 'Invalid credentials']);
+        return back()->withErrors(['login' => 'Неверно введен логин или пароль']);
     }
 
     public function logout()

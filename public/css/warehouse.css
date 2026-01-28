@@ -54,6 +54,13 @@ th, td{
 	
 }
 
+#content-3{
+	td{
+		width: 25%;
+	}
+	
+}
+
 #content-4{
 	table{
 		width: 100%;
@@ -125,7 +132,7 @@ th, td{
 
 
 .delivery-items{
-	gap: 20px
+	gap: 20px;
 }
 
 .delivery-item{
@@ -135,6 +142,10 @@ th, td{
 
 	div{
 		position: relative;
+	}
+	hr{
+		width: 600px;
+		border-top: 2px dashed #38511B;
 	}
 }
 
@@ -148,3 +159,5 @@ th, td{
 			color: green;
 		}
 	}
+
+

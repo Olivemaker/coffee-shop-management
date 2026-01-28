@@ -10,7 +10,7 @@
 		<h1>Авторизация</h1>
 		@if($errors->any())
 		<div>
-			<strong>{{ $errors->first() }}</strong>
+			<span style="color: red; font-weight: 600">{{ $errors->first() }}</span>
 		</div>
 		@endif
 		<div>

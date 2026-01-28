@@ -8,19 +8,19 @@
 		@csrf
 		<h1>Новый пароль</h1>
 			<input type="hidden" name="token" value="{{ $token }}">
-		<div>
+		<div style="width: 600px">
 			<label for="login">Логин</label>
 			<input type="text" name="login" placeholder=" ">
 			@error('login')
-                <span class="text-danger">{{ $message }}</span>
+                <span style="color: red; font-weight: 600" class="text-danger">{{ $message }}</span>
             @enderror
 		</div>
 
-		<div>
+		<div style="width: 600px">
 			<label for="password">Пароль</label>
 			<input type="password" name="password" placeholder=" ">
 			@error('password')
-                <span class="text-danger">{{ $message }}</span>
+                <span style="color: red; font-weight: 600" class="text-danger">{{ $message }}</span>
             @enderror
 		</div>
 

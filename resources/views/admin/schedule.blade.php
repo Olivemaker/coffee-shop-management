@@ -9,7 +9,6 @@
 <div class="tab">
     <!-- Вкладка просмотра расписания -->
     <div id="content-1" class="tab-content" style="display: {{ $section === 'schedule' ? 'flex' : 'none' }};">
-        @if($hasSchedule)
             <div class="month-navigation">
                 @if($prevMonth)
                     <a href="{{ route('schedule', ['section' => 'schedule', 'month' => $prevMonth]) }}" class="btn">&larr; Предыдущий</a>
@@ -21,6 +20,7 @@
                     <a href="{{ route('schedule', ['section' => 'schedule', 'month' => $nextAvailableMonth]) }}" class="btn">Следующий &rarr;</a>
                 @endif
             </div>
+        @if($hasSchedule)
             
             @include('admin.partials.schedule-table', [
                 'editMode' => false,
@@ -31,6 +31,25 @@
         @else
             <p>Расписание на этот месяц не найдено</p>
         @endif
+        <div class="legend">
+            <h2>Обозначения смен в расписании:</h2>
+            <div>
+                <img src="{{ asset('images/icons/day-off.png')}}">
+                <span>Выходной день</span>
+            </div>
+            <div>
+                <img src="{{ asset('images/icons/full-day.png')}}">
+                <span>Полный рабочий день</span>
+            </div>
+            <div>
+                <img src="{{ asset('images/icons/first-half.png')}}">
+                <span>Первая половина дня</span>
+            </div>
+            <div>
+                <img src="{{ asset('images/icons/second-half.png')}}">
+                <span>Вторая половина дня</span>
+            </div>
+        </div>
     </div>
 
     <!-- Вкладка управления расписанием -->
@@ -87,6 +106,26 @@
                     'daysInMonth' => $nextDaysInMonth,
                     'schedules' => $nextSchedules
                 ])
+            </div>
+
+            <div class="legend">
+                <h2>Обозначения смен в расписании:</h2>
+                <div>
+                    <img src="{{ asset('images/icons/day-off.png')}}">
+                    <span>Выходной день</span>
+                </div>
+                <div>
+                    <img src="{{ asset('images/icons/full-day.png')}}">
+                    <span>Полный рабочий день</span>
+                </div>
+                <div>
+                    <img src="{{ asset('images/icons/first-half.png')}}">
+                    <span>Первая половина дня</span>
+                </div>
+                <div>
+                    <img src="{{ asset('images/icons/second-half.png')}}">
+                    <span>Вторая половина дня</span>
+                </div>
             </div>
             
             <button type="submit" class="btn btn-primary">

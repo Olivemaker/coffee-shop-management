@@ -178,12 +178,13 @@
 				@endphp
 					<h3>{{$categoryName[$category->name]}}</h3>
 
-					<p>@foreach($category->menu as $item)
-                		@if($item->status === 'active')
-
-						{{$item->name}},
-						@endif
-					@endforeach</p>
+					<p>
+					    @foreach($category->menu as $item)
+					        @if($item->status === 'active')
+					            {{ $item->name }}@if(!$loop->last), @endif
+					        @endif
+					    @endforeach
+					</p>
 
 					<p>{{$category->foodprice->price}} р</p>
 				</div>
