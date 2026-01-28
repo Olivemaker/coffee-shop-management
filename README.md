@@ -152,7 +152,9 @@ MAIL_HOST=sandbox.smtp.mailtrap.io
 MAIL_PORT=2525
 MAIL_USERNAME=ваш_username
 MAIL_PASSWORD=ваш_password
-MAIL_ENCRYPTION=tls```
+MAIL_ENCRYPTION=tls
+```
+
 3. Команды для разработки
 ```bash
 # Сброс базы данных с демо-данными
@@ -164,4 +166,5 @@ php artisan serve --host=0.0.0.0 --port=8000
 # Оптимизация для продакшена
 php artisan config:cache
 php artisan route:cache
-php artisan view:cache```
+php artisan view:cache
+```
